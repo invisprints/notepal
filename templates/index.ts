@@ -7,6 +7,13 @@ const templates = {
   readwiseCSV,
 } as Record<string, string>;
 
+function escapeCSVField(field: string): string {
+  if (field && (field.includes(',') || field.includes('"') || field.includes('\n'))) {
+    return `"${field.replace(/"/g, '""')}"`;
+  }
+  return field;
+}
+
 export function transformNote(
   notes: Note[],
   template: string,
