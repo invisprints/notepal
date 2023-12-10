@@ -7,11 +7,12 @@ const templates = {
   readwiseCSV,
 } as Record<string, string>;
 
-function escapeCSVField(field: string): string {
+function escapeCSVField(field: string): nunjucks.runtime.SafeString {
+  let escapedField = field;
   if (field && (field.includes(',') || field.includes('"') || field.includes('\n'))) {
-    return `"${field.replace(/"/g, '""')}"`;
+    escapedField = `"${field.replace(/"/g, '""')}"`;
   }
-  return field;
+  return new nunjucks.runtime.SafeString(escapedField);
 }
 
 export function transformNote(
