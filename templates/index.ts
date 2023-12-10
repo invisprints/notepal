@@ -13,6 +13,8 @@ export function transformNote(
   fromString: boolean
 ) {
   const flatNotes = flatMap(notes, (note) => note.children);
+  nunjucks.configure({ autoescape: true });
+  nunjucks.addFilter('escapeCSV', escapeCSVField);
   return nunjucks.renderString(fromString ? template : templates[template], {
     notes: flatNotes,
   }).trim();
