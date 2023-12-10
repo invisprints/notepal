@@ -8,7 +8,8 @@ export function mq(
 }
 
 export function downloadText(filename: string, data: string) {
-  const blob = new Blob([data], { type: "text/csv;charset=utf-8" });
+  const BOM = "\uFEFF";
+  const blob = new Blob([BOM + data], { type: "text/csv;charset=utf-8" });
   const elem = window.document.createElement("a");
   elem.href = window.URL.createObjectURL(blob);
   elem.download = filename;
